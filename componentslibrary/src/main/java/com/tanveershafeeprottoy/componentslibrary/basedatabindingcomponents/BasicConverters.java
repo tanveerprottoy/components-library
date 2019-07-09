@@ -2,7 +2,7 @@ package com.tanveershafeeprottoy.componentslibrary.basedatabindingcomponents;
 
 import android.util.Base64;
 
-import com.tanveershafeeprottoy.componentslibrary.crypto.CryptographyUtils;
+import com.valuezier.valuezier.utils.CryptographyUtils;
 
 import androidx.annotation.NonNull;
 

@@ -1,10 +1,13 @@
 package com.tanveershafeeprottoy.componentslibrary.basecomponents;
 
-import com.tanveershafeeprottoy.componentslibrary.basedatabindingcomponents.BaseListAdapter;
-
 /**
  * @author Tanveer Shafee Prottoy
  */
-public abstract class BaseListNavigableActivity<T> extends BaseNavigableActivity {
-    protected BaseListAdapter<T> baseListAdapter;
+public abstract class BaseListNavigableActivity<T extends BaseListItemModel>
+    extends BaseNavigableActivity {
+    private BaseListAdapter<T> baseListAdapter;
+
+    public BaseListAdapter<T> getBaseListAdapter() {
+        return baseListAdapter;
+    }
 }

@@ -30,7 +30,7 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
         @NonNull final Observer<? super T> observer
     ) {
         if(hasActiveObservers()) {
-            // "Multiple observers registered but only one will be notified of changes"
+            // Multiple observers registered but only one will be notified of changes.;
         }
 
         // Observe the internal MutableLiveData

@@ -1,4 +1,4 @@
-package com.tanveershafeeprottoy.componentslibrary.basedatabindingcomponents;
+package com.tanveershafeeprottoy.componentslibrary.basecomponents;
 
 import android.view.View;
 

@@ -1,26 +1,25 @@
-package com.tanveershafeeprottoy.componentslibrary.basedatabindingcomponents;
+package com.tanveershafeeprottoy.componentslibrary.basecomponents;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
-import com.tanveershafeeprottoy.componentslibrary.basecomponents.BaseRecyclerViewHolder;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author Tanveer Shafee Prottoy
  */
-public class BaseListAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHolder<T>> {
+public class BaseListAdapter<T extends BaseListItemModel>
+    extends RecyclerView.Adapter<BaseRecyclerViewHolder<T>> {
     private int resourceId;
     private int variableId;
     private ListItemOnClickListener listItemOnClickListener;
-    @Nullable
-    protected List<T> objList;
+    @Nullable private List<T> objList;
 
     public BaseListAdapter(
         int resourceId,
@@ -41,7 +40,8 @@ public class BaseListAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHol
                 resourceId,
                 parent,
                 false
-            ), variableId,
+            ),
+            variableId,
             listItemOnClickListener
         );
     }
@@ -72,7 +72,12 @@ public class BaseListAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHol
     }
 
     public void setData(@Nullable List<T> objList) {
-        this.objList = objList;
-        notifyDataSetChanged();
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
+            new BaseDiffUtilCallback<>(
+                this.objList,
+                objList
+            )
+        );
+        diffResult.dispatchUpdatesTo(this);
     }
 }

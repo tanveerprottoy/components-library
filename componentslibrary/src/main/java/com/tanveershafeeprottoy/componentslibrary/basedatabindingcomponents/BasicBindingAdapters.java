@@ -3,7 +3,7 @@ package com.tanveershafeeprottoy.componentslibrary.basedatabindingcomponents;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-import com.tanveershafeeprottoy.componentslibrary.networkutils.NetImageUtils;
+import com.valuezier.valuezier.networkutils.NetImageUtils;
 
 import androidx.databinding.BindingAdapter;
 

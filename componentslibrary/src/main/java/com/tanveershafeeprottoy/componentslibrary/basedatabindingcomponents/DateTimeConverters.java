@@ -2,7 +2,7 @@ package com.tanveershafeeprottoy.componentslibrary.basedatabindingcomponents;
 
 import android.text.format.DateUtils;
 
-import com.tanveershafeeprottoy.componentslibrary.coreutils.DateTimeUtils;
+import com.valuezier.valuezier.coreutils.DateTimeUtils;
 
 import java.util.Locale;
 import java.util.TimeZone;
@@ -12,11 +12,11 @@ import androidx.annotation.NonNull;
 public class DateTimeConverters {
 
     @NonNull
-    public static String dateTimeToRelativeTimeSpan(String dateTime) {
+    private static String date(String dateTime) {
         try {
             return DateTimeUtils.getRelativeTimeSpanString(
                 DateTimeUtils.getDate(
-                    DateTimeUtils.DATE_TIME_PATTERN_TIMEZONE_OFFSET,
+                    DateTimeUtils.DATE_TIME_PATTERN_FULL_MILLISECOND,
                     dateTime,
                     Locale.getDefault(),
                     TimeZone.getDefault()
@@ -32,11 +32,15 @@ public class DateTimeConverters {
     }
 
     @NonNull
-    public static String dateTimeToTimeSpan(String dateTime) {
+    public static String dateTimeToRelativeTimeSpan(String dateTime) {
         try {
+            String pattern = DateTimeUtils.DATE_TIME_PATTERN_TIMEZONE_OFFSET;
+            if(dateTime.contains("+")) {
+                pattern = DateTimeUtils.DATE_TIME_PATTERN_FULL_MILLISECOND;
+            }
             return DateTimeUtils.getRelativeTimeSpanString(
-                DateTimeUtils.dateTimeToTimeSpan(
-                    DateTimeUtils.DATE_TIME_PATTERN_TIMEZONE_OFFSET,
+                DateTimeUtils.getDateForCurrentZone(
+                    pattern,
                     dateTime
                 ).getTime(),
                 DateTimeUtils.getCurrentTimeMillis(),

@@ -1,6 +1,7 @@
 package com.tanveershafeeprottoy.componentslibrary.networkutils;
 
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.squareup.picasso.MemoryPolicy;
@@ -8,10 +9,22 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
 
+import java.io.File;
+
 public class NetImageUtils {
 
     public static void load(String path, Target target) {
         Picasso.get().load(path)
+               .into(target);
+    }
+
+    public static void load(Uri path, Target target) {
+        Picasso.get().load(path)
+               .into(target);
+    }
+
+    public static void load(File file, Target target) {
+        Picasso.get().load(file)
                .into(target);
     }
 
@@ -72,6 +85,24 @@ public class NetImageUtils {
     public static void load(String path, int width, int height, Target target) {
         Picasso.get().load(path)
                .resize(width, height)
+               .into(target);
+    }
+
+    public static void loadWithCrop(Uri uri, int width, int height, Target target) {
+        Picasso.get().load(uri)
+               .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+               .resize(width, height)
+               .onlyScaleDown()
+               .centerCrop()
+               .into(target);
+    }
+
+    public static void loadWithCrop(String url, int width, int height, Target target) {
+        Picasso.get().load(url)
+               .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+               .resize(width, height)
+               .onlyScaleDown()
+               .centerCrop()
                .into(target);
     }
 

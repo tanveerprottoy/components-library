@@ -2,8 +2,6 @@ package com.tanveershafeeprottoy.componentslibrary.basecomponents;
 
 import android.view.View;
 
-import com.tanveershafeeprottoy.componentslibrary.basedatabindingcomponents.ListItemOnClickListener;
-
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
