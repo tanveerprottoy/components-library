@@ -1,6 +1,5 @@
 package com.tanveershafeeprottoy.componentslibrary.coreutils;
 
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.text.format.DateUtils;
 
@@ -24,6 +23,8 @@ public class DateTimeUtils {
     public static final String TIME_PATTERN_FULL = "HH:mm:ss";
     public static final String TIME_PATTERN_24 = "HH:mm";
     public static final String MONTH_DAY_PATTERN = "MMM d";
+    public static final String TIME_PATTERN_12 = "h:mm a";
+    public static final String DATE_TIME_PATTERN_FULL_MILLISECOND = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String DATE_TIME_PATTERN_TIMEZONE_OFFSET = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     public static long getCurrentTimeMillis() {
@@ -156,7 +157,7 @@ public class DateTimeUtils {
     }
 
     @Nullable
-    public static Date dateTimeToTimeSpan(
+    public static Date getDateForCurrentZone(
         String pattern,
         String date
     ) {
@@ -177,51 +178,19 @@ public class DateTimeUtils {
         }
     }
 
-    /*
-    fun showDatePicker(fragmentManager:FragmentManager) {
-        DatePickerDialogFragment.newInstance().show(fragmentManager, "DatePickerDialogFragment")
-    }*/
-
-/*    fun showDatePicker(appCompatActivity: AppCompatActivity, onDateSetListener: DatePickerDialog.OnDateSetListener) {
-        val calendar = Calendar.getInstance()
-        DatePickerDialog(appCompatActivity, onDateSetListener, calendar
-                .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)).show()
-    }*/
-
-/*    fun showDatePicker(fragmentActivity: FragmentActivity, onDateSetListener: DatePickerDialog.OnDateSetListener) {
-        val calendar = Calendar.getInstance()
-        DatePickerDialog(fragmentActivity, onDateSetListener, calendar
-                .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)).show()
-    }*/
-
-    /**
-     * caller of this function must implement
-     *
-     * @see TimePickerDialog.OnTimeSetListener
-     */
-    /*fun showTimePicker(fragmentManager:FragmentManager, isTwentyFourHour:Boolean) {
-        TimePickerDialogFragment.newInstance(isTwentyFourHour)
-                                .show(
-                                    fragmentManager,
-                                    "TimePickerFragment"
-                                )   //DateFormat.is24HourFormat(fragmentActivity)
-    }
-
-    fun showTimePicker(
-        fragmentActivity:FragmentActivity,
-        onTimeSetListener:TimePickerDialog.OnTimeSetListener,
-        isTwentyFourHour:Boolean
+    @NonNull
+    public static String getTime(
+        String pattern,
+        int hour,
+        int minute
     ) {
-        val calendar = Calendar.getInstance()
-        TimePickerDialog(
-            fragmentActivity,
-            onTimeSetListener,
-            calendar
-                .get(Calendar.HOUR_OF_DAY),
-            calendar.get(Calendar.MINUTE),
-            isTwentyFourHour
-        ).show()   //DateFormat.is24HourFormat(fragmentActivity)
-    }*/
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        return new SimpleDateFormat(
+            pattern,
+            Locale.getDefault()
+        ).format(calendar.getTime()
+        );
+    }
 }

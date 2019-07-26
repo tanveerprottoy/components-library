@@ -59,13 +59,16 @@ public class NetImageUtils {
         int width,
         int height,
         boolean crop,
-        Drawable placeHolderDrawable
+        Drawable placeHolderDrawable,
+        Drawable errorDrawable
     ) {
         RequestCreator requestCreator = Picasso.get().load(path).resize(width, height);
+        requestCreator.onlyScaleDown();
         if(crop) {
             requestCreator.centerCrop();
         }
         requestCreator.placeholder(placeHolderDrawable);
+        requestCreator.error(errorDrawable);
         requestCreator.into(imageView);
     }
 
@@ -104,6 +107,23 @@ public class NetImageUtils {
                .onlyScaleDown()
                .centerCrop()
                .into(target);
+    }
+
+    public static void loadWithError(
+        String path,
+        ImageView imageView,
+        int width,
+        int height,
+        boolean crop,
+        Drawable errorDrawable
+    ) {
+        RequestCreator requestCreator = Picasso.get().load(path).resize(width, height);
+        requestCreator.onlyScaleDown();
+        if(crop) {
+            requestCreator.centerCrop();
+        }
+        requestCreator.error(errorDrawable);
+        requestCreator.into(imageView);
     }
 
     /*public static void load(String path, ImageView imageView, View progressBar, int errorResource) {

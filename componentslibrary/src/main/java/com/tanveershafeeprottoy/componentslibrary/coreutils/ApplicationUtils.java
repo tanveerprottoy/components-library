@@ -31,7 +31,8 @@ public class ApplicationUtils {
         DialogInterface.OnClickListener onClickListener,
         boolean isCancellable
     ) {
-        new AlertDialog.Builder(context).setTitle(title).setMessage(msg)
+        new AlertDialog.Builder(context).setTitle(title)
+                                        .setMessage(msg)
                                         .setPositiveButton(positiveBtnTextId, onClickListener)
                                         .setNegativeButton(negativeBtnTextId, onClickListener)
                                         .setCancelable(isCancellable)

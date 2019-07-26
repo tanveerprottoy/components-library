@@ -3,6 +3,7 @@ package com.tanveershafeeprottoy.componentslibrary.basedatabindingcomponents;
 import android.text.format.DateUtils;
 
 import com.valuezier.valuezier.coreutils.DateTimeUtils;
+import com.valuezier.valuezier.utils.Constants;
 
 import java.util.Locale;
 import java.util.TimeZone;
@@ -34,6 +35,9 @@ public class DateTimeConverters {
     @NonNull
     public static String dateTimeToRelativeTimeSpan(String dateTime) {
         try {
+            if(dateTime.equals(Constants.NOW)) {
+                return dateTime;
+            }
             String pattern = DateTimeUtils.DATE_TIME_PATTERN_TIMEZONE_OFFSET;
             if(dateTime.contains("+")) {
                 pattern = DateTimeUtils.DATE_TIME_PATTERN_FULL_MILLISECOND;

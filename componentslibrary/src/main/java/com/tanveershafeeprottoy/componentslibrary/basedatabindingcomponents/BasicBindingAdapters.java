@@ -36,14 +36,22 @@ public class BasicBindingAdapters {
         );
     }
 
-    @BindingAdapter({ "imageUrl", "imageWidth", "imageHeight", "crop", "placeHolder" })
+    @BindingAdapter({
+        "imageUrl",
+        "imageWidth",
+        "imageHeight",
+        "crop",
+        "placeHolder",
+        "errorDrawable"
+    })
     public static void loadImage(
         ImageView imageView,
         String url,
         float imageWidth,
         float imageHeight,
         boolean crop,
-        Drawable placeHolderDrawable
+        Drawable placeHolderDrawable,
+        Drawable errorDrawable
     ) {
         NetImageUtils.load(
             url,
@@ -51,7 +59,27 @@ public class BasicBindingAdapters {
             (int) imageWidth,
             (int) imageHeight,
             crop,
-            placeHolderDrawable
+            placeHolderDrawable,
+            errorDrawable
+        );
+    }
+
+    @BindingAdapter({ "imageUrl", "imageWidth", "imageHeight", "crop", "errorDrawable" })
+    public static void loadImageWithError(
+        ImageView imageView,
+        String url,
+        float imageWidth,
+        float imageHeight,
+        boolean crop,
+        Drawable errorDrawable
+    ) {
+        NetImageUtils.loadWithError(
+            url,
+            imageView,
+            (int) imageWidth,
+            (int) imageHeight,
+            crop,
+            errorDrawable
         );
     }
 }

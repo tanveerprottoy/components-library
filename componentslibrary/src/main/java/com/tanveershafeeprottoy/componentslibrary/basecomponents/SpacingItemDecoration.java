@@ -10,10 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author Tanveer Shafee Prottoy
  */
 public class SpacingItemDecoration extends RecyclerView.ItemDecoration {
-    private int space;
+    private int spaceLeft, spaceRight, spaceTop, spaceBottom;
 
-    public SpacingItemDecoration(int space) {
-        this.space = space;
+    public SpacingItemDecoration(
+        int spaceLeft,
+        int spaceRight,
+        int spaceTop,
+        int spaceBottom
+    ) {
+        this.spaceLeft = spaceLeft;
+        this.spaceRight = spaceRight;
+        this.spaceTop = spaceTop;
+        this.spaceBottom = spaceBottom;
     }
 
     @Override
@@ -23,13 +31,13 @@ public class SpacingItemDecoration extends RecyclerView.ItemDecoration {
         @NonNull RecyclerView parent,
         @NonNull RecyclerView.State state
     ) {
-        outRect.left = space;
-        outRect.right = space;
-        outRect.bottom = space;
+        outRect.left = spaceLeft;
+        outRect.right = spaceRight;
+        outRect.bottom = spaceBottom;
 
         // Add top margin only for the first item to avoid double space between items
         if(parent.getChildLayoutPosition(view) == 0) {
-            outRect.top = space;
+            outRect.top = spaceTop;
         }
         else {
             outRect.top = 0;

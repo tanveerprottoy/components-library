@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.view.Gravity;
 import android.widget.Toast;
 
 import java.io.File;
@@ -49,6 +48,32 @@ public class IntentUtils {
         return intent;
     }
 
+    public static Intent createFileIntent() {
+        try {
+            String[] mimeTypes = {
+                "application/*",
+                //"audio/*",
+                "font/*",
+                //"image/*",
+                "message/*",
+                "model/*",
+                "multipart/*",
+                "text/*",
+                //"video/*"
+            };
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.putExtra(
+                Intent.EXTRA_MIME_TYPES,
+                mimeTypes
+            );
+            return intent;
+        }
+        catch(ActivityNotFoundException a) {
+            return null;
+        }
+    }
+
     public static void startActivityWithImplicitIntent(
         @NonNull AppCompatActivity appCompatActivity,
         String action
@@ -68,19 +93,6 @@ public class IntentUtils {
     ) {
         try {
             appCompatActivity.startActivity(new Intent(action, uri));
-        }
-        catch(ActivityNotFoundException a) {
-            showErrorMessage(appCompatActivity);
-        }
-    }
-
-    public static void startActivityForResultWithImplicitIntent(
-        @NonNull AppCompatActivity appCompatActivity,
-        String action,
-        int requestCode
-    ) {
-        try {
-            appCompatActivity.startActivityForResult(new Intent(action), requestCode);
         }
         catch(ActivityNotFoundException a) {
             showErrorMessage(appCompatActivity);
@@ -135,6 +147,33 @@ public class IntentUtils {
             intent.setData(Uri.parse("mailto:")); // only email apps should handle this
             intent.putExtra(Intent.EXTRA_EMAIL, addressArray);
             appCompatActivity.startActivity(intent);
+        }
+        catch(ActivityNotFoundException a) {
+            showErrorMessage(appCompatActivity);
+        }
+    }
+
+    public static void startActivityForResultWithImplicitIntent(
+        @NonNull AppCompatActivity appCompatActivity,
+        String action,
+        int requestCode
+    ) {
+        try {
+            appCompatActivity.startActivityForResult(new Intent(action), requestCode);
+        }
+        catch(ActivityNotFoundException a) {
+            showErrorMessage(appCompatActivity);
+        }
+    }
+
+    public static void startActivityForResultWithFileIntent(
+        @NonNull AppCompatActivity appCompatActivity,
+        int requestCode
+    ) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("file/*");
+            appCompatActivity.startActivityForResult(intent, requestCode);
         }
         catch(ActivityNotFoundException a) {
             showErrorMessage(appCompatActivity);

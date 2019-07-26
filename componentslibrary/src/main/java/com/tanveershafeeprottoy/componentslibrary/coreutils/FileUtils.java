@@ -3,6 +3,7 @@ package com.tanveershafeeprottoy.componentslibrary.coreutils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -52,6 +53,41 @@ public class FileUtils {
             fileOutputStream = new FileOutputStream(imageFile, append);
             // Use the compress method on the BitMap object to write image to the OutputStream
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, fileOutputStream);
+        }
+        catch(FileNotFoundException f) {
+            return null;
+        }
+        finally {
+            try {
+                fileOutputStream.close();
+            }
+            catch(IOException | NullPointerException e) {
+
+            }
+        }
+        return directoryFile.getAbsolutePath();
+    }
+
+    @Nullable
+    public static String save(
+        @NonNull Context context,
+        Uri uri,
+        String directoryName,
+        String fileNameWithExtension,
+        int quality,
+        boolean append
+    ) {
+        File directoryFile = context.getDir(directoryName, Context.MODE_PRIVATE);
+        if(!directoryFile.exists()) {
+            directoryFile.mkdir();
+        }
+        // Create file
+        File otherFile = new File(directoryFile, fileNameWithExtension);
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(otherFile, append);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+//            fileOutputStream.write();
         }
         catch(FileNotFoundException f) {
             return null;

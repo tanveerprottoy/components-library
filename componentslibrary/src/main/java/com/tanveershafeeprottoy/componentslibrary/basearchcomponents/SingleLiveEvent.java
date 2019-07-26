@@ -20,7 +20,6 @@ import androidx.lifecycle.Observer;
  * Note that only one observer is going to be notified of changes.
  */
 public class SingleLiveEvent<T> extends MutableLiveData<T> {
-    private static final String TAG = "SingleLiveEvent";
     private AtomicBoolean pending = new AtomicBoolean(false);
 
     @MainThread
@@ -29,9 +28,7 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
         @NonNull LifecycleOwner owner,
         @NonNull final Observer<? super T> observer
     ) {
-        if(hasActiveObservers()) {
-            // Multiple observers registered but only one will be notified of changes.;
-        }
+        // hasActiveObservers() == true Multiple observers registered but only one will be notified of changes
 
         // Observe the internal MutableLiveData
         super.observe(owner, t -> {

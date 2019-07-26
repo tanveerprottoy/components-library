@@ -40,6 +40,9 @@ public class ValidationUtils {
     }
 
     public static boolean isValidEmail(String email) {
+        if(TextUtils.isEmpty(email)) {
+            return false;
+        }
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
