@@ -10,7 +10,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class NetUtils {
     private static final long TIMEOUT = 60L;
-    private static NetUtils netUtils;
+    // the volatile modifier guarantees that any thread that
+    // reads a field will see the most recently written value
+    private static volatile NetUtils netUtils;
     private Retrofit retrofit;
 
     // private constructor for singleton
